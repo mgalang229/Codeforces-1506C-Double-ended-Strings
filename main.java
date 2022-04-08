@@ -34,23 +34,30 @@ public class Main {
 					}
 				}
 			}
-			// remove the excess elements
-			int ans = 0;
-			for(int i = 0; i + sz <= n; i++) {
-				if(a.substring(i, i + sz).equals(largestWord)) {
-					ans += (i + (n - (i + sz)));
-					break;
-				}
-			}
-			int m = b.length();
-			for(int i = 0; i + sz <= m; i++) {
-				if(b.substring(i, i + sz).equals(largestWord)) {
-					ans += (i + (m - (i + sz)));
-					break;
-				}
-			}
+			// remove the excess elements in both of the strings
+			int ans = countRemovedExcess(a, largestWord, n, sz);
+			ans += countRemovedExcess(b, largestWord, b.length(), sz);
 			System.out.println(ans);
 		}
+	}
+	
+	/***
+	 * Removes the excess characters and retains the largest common substring
+	 * @param s
+	 * @param largestWord
+	 * @param n
+	 * @param sz
+	 * @return
+	 */
+	static int countRemovedExcess(String s, String largestWord, int n, int sz) {
+		int res = 0;
+		for(int i = 0; i + sz <= n; i++) {
+			if(s.substring(i, i + sz).equals(largestWord)) {
+				res += (i + (n - (i + sz)));
+				break;
+			}
+		}
+		return res;
 	}
 	
 	static class FastReader {
